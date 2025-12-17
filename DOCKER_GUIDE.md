@@ -52,10 +52,7 @@ MONGO_URI=your_mongodb_atlas_connection_string_here
 JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 ```
 
-**Example MONGO_URI:**
-```
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/cdstar?retryWrites=true&w=majority
-```
+
 
 ### Step 2: Build the Docker Images
 
