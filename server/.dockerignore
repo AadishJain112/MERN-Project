@@ -1,0 +1,55 @@
+# ============================================
+# Backend .dockerignore
+# ============================================
+# Files/folders listed here won't be copied into Docker image
+# This makes builds faster and images smaller
+
+# Dependencies (will be installed fresh in container)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files (should be passed via docker-compose)
+.env
+.env.local
+.env.*.local
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Test files
+tests/
+*.test.js
+jest.config.js
+
+# Uploads (will be mounted as volume)
+uploads/*
+!uploads/.gitkeep
+
+# Documentation
+README.md
+*.md
+
+# Docker files (don't need in image)
+Dockerfile
+.dockerignore
+docker-compose.yml
+

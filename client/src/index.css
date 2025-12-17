@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #6366f1;
+  --primary-strong: #4f46e5;
+  --secondary: #a855f7;
+  --accent: #22d3ee;
+  --surface: #0b1120;
+  --surface-soft: #101936;
+  --stroke: rgba(255, 255, 255, 0.08);
+  --glass: rgba(13, 23, 51, 0.55);
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  background-color: var(--surface);
+  background-image: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.25), transparent 35%),
+    radial-gradient(circle at 90% 10%, rgba(34, 211, 238, 0.2), transparent 30%),
+    radial-gradient(circle at 50% 80%, rgba(168, 85, 247, 0.15), transparent 40%);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Form fields: ensure readable dark text on light inputs across themes */
+input,
+textarea,
+select,
+option {
+  color: #0f172a;
+  background-color: #ffffff;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-grid {
+  position: relative;
+}
+
+.app-grid::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 100px 100px;
+  mask-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.6), transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glass-panel {
+  background: var(--glass);
+  border: 1px solid var(--stroke);
+  border-radius: 24px;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 25px 70px rgba(2, 6, 23, 0.35);
+}
+
+.surface-card {
+  background: #fff;
+  border-radius: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+}
+
+.accent-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.85rem 1.8rem;
+  font-weight: 600;
+  background: linear-gradient(110deg, var(--primary), var(--secondary));
+  color: #fff;
+  box-shadow: 0 20px 45px rgba(79, 70, 229, 0.35);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 60px rgba(79, 70, 229, 0.45);
+}
+
+.btn-secondary {
+  border-radius: 999px;
+  padding: 0.85rem 1.6rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  background: transparent;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.floating-badge {
+  position: absolute;
+  right: -30px;
+  top: 30%;
+  transform: rotate(12deg);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  padding: 0.75rem 1.3rem;
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  backdrop-filter: blur(14px);
+}
+
+.hero-spark {
+  position: absolute;
+  inset: auto auto -180px 60%;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.45), transparent 60%);
+  filter: blur(20px);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.chart-grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.stagger-fade {
+  animation: floatFade 6s ease-in-out infinite;
+}
+
+@keyframes floatFade {
+  0% {
+    transform: translateY(0) translateZ(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-12px) translateZ(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) translateZ(0);
+    opacity: 0.7;
+  }
+}

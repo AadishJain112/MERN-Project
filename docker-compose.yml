@@ -1,0 +1,89 @@
+# ============================================
+# Docker Compose Configuration for CD-STAR
+# ============================================
+# This file orchestrates multiple containers to work together
+# Think of it as a blueprint for your entire application stack
+
+version: '3.8'
+
+services:
+  # ============================================
+  # Backend Service (Node.js + Express)
+  # ============================================
+  backend:
+    # Build the backend image from server/Dockerfile
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    
+    # Container name (easier to reference)
+    container_name: cdstar-backend
+    
+    # Expose port 5000 to host machine
+    # Format: "host_port:container_port"
+    ports:
+      - "5000:5000"
+    
+    # Environment variables
+    # MONGO_URI should be set in .env file or here
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGO_URI=${MONGO_URI:-}
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
+    
+    # Volume for file uploads (persists data outside container)
+    # Format: "host_path:container_path"
+    volumes:
+      - ./server/uploads:/app/uploads
+    
+    # Restart policy: restart container if it crashes
+    restart: unless-stopped
+    
+    # Health check: verify backend is running
+    # Uses node to make HTTP request to check if server responds
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5000/', (r) => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================
+  # Frontend Service (React + Nginx)
+  # ============================================
+  frontend:
+    # Build the frontend image from client/Dockerfile
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    
+    # Container name
+    container_name: cdstar-frontend
+    
+    # Expose port 80 (standard HTTP port)
+    ports:
+      - "80:80"
+    
+    # Environment variable for API URL
+    # This tells React where to find the backend
+    environment:
+      - VITE_API_URL=http://localhost/api
+    
+    # Depends on backend - wait for backend to be ready
+    depends_on:
+      backend:
+        condition: service_healthy
+    
+    # Restart policy
+    restart: unless-stopped
+
+# ============================================
+# Networks
+# ============================================
+# Containers on the same network can communicate
+# using service names (e.g., "backend:5000")
+networks:
+  default:
+    name: cdstar-network
+

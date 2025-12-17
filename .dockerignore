@@ -1,0 +1,6 @@
+# Root level .dockerignore (if building from root)
+node_modules/
+.git/
+*.md
+.DS_Store
+
