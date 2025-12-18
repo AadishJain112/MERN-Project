@@ -1,15 +1,23 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import api from '../services/api';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+import api from "../services/api";
 
 const AuthContext = createContext(null);
 
 const STORAGE_KEYS = {
-  token: 'cdstar_token',
-  user: 'cdstar_user',
+  token: "cdstar_token",
+  user: "cdstar_user",
 };
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(() => localStorage.getItem(STORAGE_KEYS.token));
+  const [token, setToken] = useState(() =>
+    localStorage.getItem(STORAGE_KEYS.token)
+  );
   const [user, setUser] = useState(() => {
     const cached = localStorage.getItem(STORAGE_KEYS.user);
     return cached ? JSON.parse(cached) : null;
@@ -30,37 +38,53 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = useCallback(async (credentials) => {
-    setLoading(true);
-    try {
-      const { data } = await api.post('/auth/login', credentials);
-      setToken(data.token);
-      setUser(data.user);
-      persist(data.token, data.user);
-      return data.user;
-    } catch (error) {
-      const message = error.response?.data?.message || 'Unable to login';
-      throw new Error(message);
-    } finally {
-      setLoading(false);
-    }
-  }, [persist]);
+  const login = useCallback(
+    async (credentials) => {
+      setLoading(true);
+      try {
+        const { data } = await api.post("/auth/login", credentials);
+        if (!data || !data.user) {
+          const message = data?.message || "Invalid server response";
+          throw new Error(message);
+        }
 
-  const register = useCallback(async (userData) => {
-    setLoading(true);
-    try {
-      const { data } = await api.post('/auth/self-register', userData);
-      setToken(data.token);
-      setUser(data.user);
-      persist(data.token, data.user);
-      return data.user;
-    } catch (error) {
-      const message = error.response?.data?.message || 'Unable to register';
-      throw new Error(message);
-    } finally {
-      setLoading(false);
-    }
-  }, [persist]);
+        setToken(data.token || null);
+        setUser(data.user);
+        persist(data.token || null, data.user);
+        return data.user;
+      } catch (error) {
+        const message = error.response?.data?.message || "Unable to login";
+        throw new Error(message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [persist]
+  );
+
+  const register = useCallback(
+    async (userData) => {
+      setLoading(true);
+      try {
+        const { data } = await api.post("/auth/self-register", userData);
+        if (!data || !data.user) {
+          const message = data?.message || "Invalid server response";
+          throw new Error(message);
+        }
+
+        setToken(data.token || null);
+        setUser(data.user);
+        persist(data.token || null, data.user);
+        return data.user;
+      } catch (error) {
+        const message = error.response?.data?.message || "Unable to register";
+        throw new Error(message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [persist]
+  );
 
   const logout = useCallback(() => {
     setToken(null);
@@ -87,8 +111,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuthContext = () => {
   const ctx = useContext(AuthContext);
   if (!ctx) {
-    throw new Error('useAuthContext must be used inside AuthProvider');
+    throw new Error("useAuthContext must be used inside AuthProvider");
   }
   return ctx;
 };
-

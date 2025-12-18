@@ -49,6 +49,11 @@ const Login = () => {
     setError("");
     try {
       const user = await login(loginForm);
+      if (!user || !user.role) {
+        setError("Login succeeded but user role is missing");
+        return;
+      }
+
       navigate(roleRedirect[user.role] || "/");
     } catch (err) {
       setError(err.message);
