@@ -4,7 +4,6 @@
 # This file orchestrates multiple containers to work together
 # Think of it as a blueprint for your entire application stack
 
-version: '3.8'
 
 services:
   # ============================================
@@ -86,4 +85,5 @@ services:
 networks:
   default:
     name: cdstar-network
+
 

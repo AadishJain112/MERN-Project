@@ -182,46 +182,46 @@ const Login = () => {
 
           {mode === 'login' ? (
             <form onSubmit={handleLoginSubmit}>
-              <div>
-                <p className="accent-pill bg-slate-100 text-indigo-500">Authenticate</p>
-                <h3 className="mt-4 text-2xl font-semibold text-slate-900">Welcome back</h3>
-                <p className="text-sm text-slate-500">Enter your institutional credentials.</p>
-              </div>
-              <div className="mt-8 space-y-5">
-                <div>
-                  <label className="text-xs uppercase tracking-[0.3em] text-slate-500">Email</label>
-                  <input
-                    type="email"
-                    name="email"
+          <div>
+            <p className="accent-pill bg-slate-100 text-indigo-500">Authenticate</p>
+            <h3 className="mt-4 text-2xl font-semibold text-slate-900">Welcome back</h3>
+            <p className="text-sm text-slate-500">Enter your institutional credentials.</p>
+          </div>
+          <div className="mt-8 space-y-5">
+            <div>
+              <label className="text-xs uppercase tracking-[0.3em] text-slate-500">Email</label>
+              <input
+                type="email"
+                name="email"
                     value={loginForm.email}
                     onChange={handleLoginChange}
-                    className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                    placeholder="you@institution.edu"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-[0.3em] text-slate-500">Password</label>
-                  <input
-                    type="password"
-                    name="password"
+                className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                placeholder="you@institution.edu"
+                required
+              />
+            </div>
+            <div>
+              <label className="text-xs uppercase tracking-[0.3em] text-slate-500">Password</label>
+              <input
+                type="password"
+                name="password"
                     value={loginForm.password}
                     onChange={handleLoginChange}
-                    className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                    placeholder="••••••••"
-                    required
-                  />
-                </div>
-              </div>
-              {error && <p className="mt-4 text-sm font-semibold text-rose-500">{error}</p>}
-              <button
-                type="submit"
-                disabled={loading}
-                className="mt-8 w-full rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/40 transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-indigo-400"
-              >
-                {loading ? 'Signing in...' : 'Access dashboard'}
-              </button>
-            </form>
+                className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+          </div>
+          {error && <p className="mt-4 text-sm font-semibold text-rose-500">{error}</p>}
+          <button
+            type="submit"
+            disabled={loading}
+            className="mt-8 w-full rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/40 transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-indigo-400"
+          >
+            {loading ? 'Signing in...' : 'Access dashboard'}
+          </button>
+        </form>
           ) : (
             <form onSubmit={handleRegisterSubmit} className="max-h-[70vh] overflow-y-auto">
               <div>
