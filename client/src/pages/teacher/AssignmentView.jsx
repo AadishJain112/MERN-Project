@@ -4,6 +4,7 @@ import EmptyState from '../../components/EmptyState';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import SectionCard from '../../components/layout/SectionCard';
 import api from '../../services/api';
+import { API_ORIGIN } from '../../services/api';
 
 const AssignmentView = () => {
   const { assignmentId } = useParams();
@@ -296,7 +297,7 @@ const GradeModal = ({
               {submission.attachments.map((attachment, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <a
-                    href={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}${attachment.url}`}
+                    href={`${API_ORIGIN}${attachment.url}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-700 hover:underline font-medium"

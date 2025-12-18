@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import api from '../services/api';
 
 const AuthContext = createContext(null);
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   });
   const [loading, setLoading] = useState(false);
 
-  const persist = (nextToken, nextUser) => {
+  const persist = useCallback((nextToken, nextUser) => {
     if (nextToken) {
       localStorage.setItem(STORAGE_KEYS.token, nextToken);
     } else {
@@ -28,9 +28,9 @@ export const AuthProvider = ({ children }) => {
     } else {
       localStorage.removeItem(STORAGE_KEYS.user);
     }
-  };
+  }, []);
 
-  const login = async (credentials) => {
+  const login = useCallback(async (credentials) => {
     setLoading(true);
     try {
       const { data } = await api.post('/auth/login', credentials);
@@ -44,9 +44,9 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [persist]);
 
-  const register = async (userData) => {
+  const register = useCallback(async (userData) => {
     setLoading(true);
     try {
       const { data } = await api.post('/auth/self-register', userData);
@@ -60,13 +60,13 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [persist]);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setToken(null);
     setUser(null);
     persist(null, null);
-  };
+  }, [persist]);
 
   const value = useMemo(
     () => ({
