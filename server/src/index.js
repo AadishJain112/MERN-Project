@@ -3,14 +3,41 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
+const fs = require("fs");
 const { connectDB, disconnectDB } = require("./config/db");
 
 dotenv.config();
 
 const app = express();
+
+// Determine uploads directory based on environment
+const uploadsPath =
+  process.env.NODE_ENV === "production"
+    ? "/app/uploads"
+    : path.join(__dirname, "../uploads");
+
+// Ensure uploads directory exists
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+}
+
+// Configure CORS: allow the deployed frontend and local dev origins.
+// Set FRONTEND_URL in your deployment environment to the exact frontend origin
+// (for example: https://mern-frontend-i1sl.onrender.com)
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "https://mern-frontend-i1sl.onrender.com",
+  "http://localhost:5173",
+  "http://localhost:3000",
+];
+
 app.use(
   cors({
-    origin: "https://mern-frontend-i1sl.onrender.com",
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // allow non-browser requests (e.g., Postman, server-to-server)
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      console.warn("Blocked CORS request from origin:", origin);
+      return callback(new Error("CORS policy: This origin is not allowed"));
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
@@ -22,7 +49,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
-const uploadsPath = path.join(__dirname, "../uploads");
 app.use("/uploads", express.static(uploadsPath));
 
 app.get("/", (_req, res) => {
