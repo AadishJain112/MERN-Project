@@ -28,7 +28,7 @@ body {
   background-image: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.25), transparent 35%),
     radial-gradient(circle at 90% 10%, rgba(34, 211, 238, 0.2), transparent 30%),
     radial-gradient(circle at 50% 80%, rgba(168, 85, 247, 0.15), transparent 40%);
-  color: var(--text-primary);
+  color: black;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -37,13 +37,13 @@ input,
 textarea,
 select,
 option {
-  color: #0f172a;
+  color: #04060a;
   background-color: #ffffff;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #94a3b8;
+  color: #000000;
 }
 
 #root {
