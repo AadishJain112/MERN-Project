@@ -72,7 +72,7 @@ const UploadActivity = () => {
       >
         <div className="grid gap-4 md:grid-cols-2">
           <div className="md:col-span-2">
-            <label className="text-xs uppercase tracking-[0.3em] text-slate-500">
+            <label className="text-xs uppercase tracking-[0.3em] text-black">
               Title
             </label>
             <input
@@ -80,43 +80,49 @@ const UploadActivity = () => {
               name="title"
               value={form.title}
               onChange={handleChange}
-              className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-black-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+              className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-black focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               placeholder="E.g. Winner - Hackathon 2025"
               required
             />
           </div>
           <div>
-            <label className="text-xs uppercase tracking-[0.3em] text-slate-500">
+            <label className="text-xs uppercase tracking-[0.3em] text-black">
               Category
             </label>
             <select
               name="category"
               value={form.category}
               onChange={handleChange}
-              className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-black-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+              className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-black focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
             >
-              <option value="event">Event</option>
-              <option value="achievement">Achievement</option>
-              <option value="skill">Skill</option>
+              <option value="event" className="text-black">
+                Event
+              </option>
+              <option value="achievement" className="text-black">
+                Achievement
+              </option>
+              <option value="skill" className="text-black">
+                Skill
+              </option>
             </select>
           </div>
           <div>
-            <label className="text-xs uppercase tracking-[0.3em] text-slate-500">
+            <label className="text-xs uppercase tracking-[0.3em]  text-black">
               Certificate
             </label>
             <input
               type="file"
               accept=".pdf,.png,.jpg,.jpeg"
               onChange={(event) => setFile(event.target.files[0])}
-              className="mt-2 w-full rounded-2xl border border-dashed border-slate-300 px-4 py-3 text-sm text-black-900"
+              className="mt-2 w-full rounded-2xl border border-dashed border-slate-300 px-4 py-3 text-sm text-black"
             />
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="mt-1 text-xs  text-black">
               Accepted formats: PDF, PNG, JPG. Max 5 MB.
             </p>
           </div>
         </div>
         <div>
-          <label className="text-xs uppercase tracking-[0.3em] text-slate-500">
+          <label className="text-xs uppercase tracking-[0.3em]  text-black">
             Description
           </label>
           <textarea
@@ -124,7 +130,7 @@ const UploadActivity = () => {
             value={form.description}
             onChange={handleChange}
             rows={4}
-            className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-black-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+            className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-black focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
             placeholder="Add relevant details, collaborators, dates, etc."
           />
         </div>
