@@ -51,9 +51,9 @@ const UploadActivity = () => {
         <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
           Upload achievement
         </p>
-        <h1 className="mt-3 text-3xl font-semibold text-black-900">
+        <h1 className="mt-3 text-3xl font-semibold text-black">
           Submit proof in seconds
-        </h1>
+        </h1> 
         <p className="mt-2 text-sm text-slate-500">
           Fill in the details and attach proof for faster teacher validation.
         </p>

@@ -28,6 +28,8 @@ const allowedOrigins = [
   process.env.FRONTEND_URL || "https://mern-frontend-i1sl.onrender.com",
   "http://localhost:5173",
   "http://localhost:3000",
+  "http://localhost",
+  "http://127.0.0.1",
 ];
 
 app.use(
